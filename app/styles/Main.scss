@@ -2,4 +2,61 @@
 
 body{
 	background-color: #ddd;
+	text-align: center;
 }
+
+.headerContainer {
+	background-color: #bbb;
+	padding-top: 15px;
+	height: 100%;
+	.header{
+		margin: 0 auto;
+
+	}
+	.description {
+		margin-top: .2em;
+		margin-bottom: .7em;
+		font-size: 12px;
+	}
+
+}
+
+.mainContainer{
+	display: flex;
+	flex-wrap: no-wrap;
+	justify-content: space-between;
+	align-items: stretch;
+	.playerStatsContainer{
+		border: 1px solid black;
+		width: 20%;
+	}
+	.gameContainer {
+		border: 1px solid black;
+		width: 80%;
+	}
+}
+
+.gameContainer {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	.visableArea {
+		width:60%;
+		height: 50%;
+		border: 1px solid black;
+		overflow: scroll;
+		#myCanvas{
+			background-color: white;
+		}
+	}
+}
+
+
+
+
+
+.footerContainer {
+	background-color: #bbb;
+	font-size: 14px;
+}
+

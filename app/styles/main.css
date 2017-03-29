@@ -2,6 +2,46 @@
   box-sizing: border-box; }
 
 body {
-  background-color: #ddd; }
+  background-color: #ddd;
+  text-align: center; }
 
-/*# sourceMappingURL=main.css.map */
+.headerContainer {
+  background-color: #bbb;
+  padding-top: 15px;
+  height: 100%; }
+  .headerContainer .header {
+    margin: 0 auto; }
+  .headerContainer .description {
+    margin-top: .2em;
+    margin-bottom: .7em;
+    font-size: 12px; }
+
+.mainContainer {
+  display: flex;
+  flex-wrap: no-wrap;
+  justify-content: space-between;
+  align-items: stretch; }
+  .mainContainer .playerStatsContainer {
+    border: 1px solid black;
+    width: 20%; }
+  .mainContainer .gameContainer {
+    border: 1px solid black;
+    width: 80%; }
+
+.gameContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center; }
+  .gameContainer .visableArea {
+    width: 60%;
+    height: 50%;
+    border: 1px solid black;
+    overflow: scroll; }
+    .gameContainer .visableArea #myCanvas {
+      background-color: white; }
+
+.footerContainer {
+  background-color: #bbb;
+  font-size: 14px; }
+
+/*# sourceMappingURL=Main.css.map */
