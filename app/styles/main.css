@@ -34,7 +34,7 @@ body {
   align-items: center; }
   .gameContainer .visableArea {
     width: 60%;
-    height: 50%;
+    height: 20em;
     border: 1px solid black;
     overflow: scroll; }
     .gameContainer .visableArea #myCanvas {
