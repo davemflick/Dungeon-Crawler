@@ -44,12 +44,61 @@ body{
 		width:60%;
 		height: 20em;
 		border: 1px solid black;
-		overflow: scroll;
-		#myCanvas{
-			background-color: white;
+		overflow: hidden;
+		position: relative;
+		
+		.gridContainer {
+			z-index: 100;
+			position: absolute;
+			width: 800px;
+			height: 800px;
+			display: flex;
+			flex-wrap: wrap;
+			justify-content: center;
+			align-items: flex-start;
+			.player {
+
+			}
+			.block{
+				width: 20px;
+				height: 20px;
+				border: 1px solid black;
+			}
 		}
 	}
 }
+
+.gridContainer {
+	.floor {
+		background-color: white;
+	}
+	.player {
+		background-color: red;
+	}
+	.wall {
+		background-color: blue;
+	}
+}
+
+
+
+// .gameContainer {
+// 	display: flex;
+// 	justify-content: center;
+// 	align-items: center;
+// 	.visableArea {
+// 		width:60%;
+// 		height: 20em;
+// 		border: 1px solid black;
+// 		overflow: scroll;
+// 		#myCanvas{
+// 			background-color: white;
+// 			padding: 0;
+// 			top: -200px;
+// 			left: -200px;
+// 		}
+// 	}
+// }
 
 
 

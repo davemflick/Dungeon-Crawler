@@ -54,10 +54,10 @@ export default class GameBoard extends React.Component{
 		for(let i=0; i<map.length; i++){
 			if(map[i][4] === 'player'){ 
 				player = map[i]
-				if(i>39){top = map[i-40]; console.log(i)} else{top = null};
-				if(i<1560){bottom = map[i+40]; console.log(i)} else {bottom = null};
-				if(i%40 !== 0){left = map[i-1]; console.log(i)} else {left = null};
-				if(i%40 !== 39){right = map[i+1]; console.log(i)} else {right = null};
+				if(i>39){top = map[i-40];} else{top = null};
+				if(i<1560){bottom = map[i+40];} else {bottom = null};
+				if(i%40 !== 0){left = map[i-1];} else {left = null};
+				if(i%40 !== 39){right = map[i+1];} else {right = null};
 			}
 		}
 
@@ -77,7 +77,6 @@ export default class GameBoard extends React.Component{
 			bottom[4] = 'player';
 			player[4] = 'board';
 		}
-		console.log('yo')
 		this.setState(this.state);
 		this.drawGrid();
 		//left keyCode= 37  Up=38 right=39 down =40
@@ -108,12 +107,11 @@ export default class GameBoard extends React.Component{
 	
 
 	buildWalls (ctx) {
-
 		let sq = this.state.curMap;
 		for(var i=0; i<sq.length; i++){
 			if(sq[i][3] === 1 ) {
-				ctx.fillStyle = 'blue'
-				ctx.fillRect(sq[i][0], sq[i][1], 19, 19)
+				ctx.fillStyle = 'blue';
+				ctx.fillRect(sq[i][0], sq[i][1], 19, 19);
 			} else if (sq[i][3] === 0 && sq[i][4] === 'player'){
 				ctx.fillStyle = 'red';
 				ctx.fillRect(sq[i][0], sq[i][1], 19, 19)

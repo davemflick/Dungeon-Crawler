@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM, { render } from 'react-dom';
 import PlayerStats from '../components/PlayerStats';
-import GameBoard from '../components/GameBoard';
+import GameBoard2 from '../components/GameBoard2';
 
 
 export default class Main extends React.Component{
@@ -18,7 +18,7 @@ export default class Main extends React.Component{
 
 	render() {
 		return (
-			<div className="mainContainer">
+			<div className="mainContainer" tabIndex="1">
 				<PlayerStats 
 					curHealth={this.state.Health} 
 					curLevel={this.state.Level}
@@ -27,7 +27,7 @@ export default class Main extends React.Component{
 					curMap={this.state.CurMap}
 					 />
 					
-				<GameBoard />
+				<GameBoard2 />
 			</div>
 		)
 	}

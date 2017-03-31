@@ -36,9 +36,28 @@ body {
     width: 60%;
     height: 20em;
     border: 1px solid black;
-    overflow: scroll; }
-    .gameContainer .visableArea #myCanvas {
-      background-color: white; }
+    overflow: hidden;
+    position: relative; }
+    .gameContainer .visableArea .gridContainer {
+      z-index: 100;
+      position: absolute;
+      width: 800px;
+      height: 800px;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      align-items: flex-start; }
+      .gameContainer .visableArea .gridContainer .block {
+        width: 20px;
+        height: 20px;
+        border: 1px solid black; }
+
+.gridContainer .floor {
+  background-color: white; }
+.gridContainer .player {
+  background-color: red; }
+.gridContainer .wall {
+  background-color: blue; }
 
 .footerContainer {
   background-color: #bbb;
