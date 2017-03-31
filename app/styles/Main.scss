@@ -41,11 +41,12 @@ body{
 	justify-content: center;
 	align-items: center;
 	.visableArea {
-		width:60%;
-		height: 20em;
+		width:400px;
+		height: 300px;
 		border: 1px solid black;
 		overflow: hidden;
 		position: relative;
+		background-color: green;
 		
 		.gridContainer {
 			z-index: 100;

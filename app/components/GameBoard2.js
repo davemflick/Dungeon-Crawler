@@ -66,7 +66,7 @@ export default class GameBoard2 extends React.Component{
 			top[1] = 2;
 			player[1] = 0;
 			this.state.verticalKey += 1;
-			if(this.state.verticalKey < 12 && this.state.verticalKey > -13) {
+			if(this.state.verticalKey < 12 && this.state.verticalKey > -15) {
 				this.state.viewTop += 20;
 			}
 			
@@ -82,7 +82,7 @@ export default class GameBoard2 extends React.Component{
 			bottom[1] = 2;
 			player[1] = 0;
 			this.state.verticalKey -= 1;
-			if(this.state.verticalKey < 12 && this.state.verticalKey > -13) {
+			if(this.state.verticalKey < 12 && this.state.verticalKey > -15) {
 				this.state.viewTop -= 20;
 			}
 		}
