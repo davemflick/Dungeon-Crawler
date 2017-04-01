@@ -54,11 +54,11 @@ body {
         border: 1px solid black; }
 
 .gridContainer .floor {
-  background-color: white; }
+  background-image: url("./images/grass.png"); }
 .gridContainer .player {
-  background-color: red; }
+  background-image: url("./images/dog.png"); }
 .gridContainer .wall {
-  background-color: blue; }
+  background-image: url("./images/wall.png"); }
 
 .footerContainer {
   background-color: #bbb;

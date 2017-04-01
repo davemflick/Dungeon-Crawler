@@ -71,13 +71,13 @@ body{
 
 .gridContainer {
 	.floor {
-		background-color: white;
+		background-image: url('./images/grass.png');
 	}
 	.player {
-		background-color: red;
+		background-image: url('./images/dog.png');
 	}
 	.wall {
-		background-color: blue;
+		background-image: url('./images/wall.png');
 	}
 }
 
