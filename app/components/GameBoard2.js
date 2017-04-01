@@ -18,7 +18,7 @@ export default class GameBoard2 extends React.Component{
 	}
 
 	componentDidMount() {
-		this.randomWall();
+		this.renderMap();
 		window.addEventListener('keydown', this.handleKeyDown.bind(this))
 	}
 
@@ -95,34 +95,84 @@ export default class GameBoard2 extends React.Component{
 		}
 	}
 
-	randomWall() {
-		// var randNum = function() {
-		// 	let num = Math.floor(Math.random() * 9);
-		// 	if(num !== 1) {num = 0};
-		// 	return num;
-		// }
-		let block = this.state.blockProps;
-		for(var i=0; i<block.length; i++){
-			block[i][1] = this.props.mapOne[i];
+	findEmptySpaces () {
+		let empty = []
+		for(var i=0; i<1600; i++){
+			if(this.state.blockProps[i][1] === 0) {
+				empty.push(0)
+			}
 		}
+		return empty
+	}
 
+	placeObjects(object, id, emptySpaces)  {
+		while (object > 0) {
+			let num = Math.floor(Math.random() * emptySpaces.length);
+			if(emptySpaces[num] == 0){
+					emptySpaces[num] = id;
+					object --
+			} else {
+				object = object
+			}
+		}
+		return emptySpaces
+	}
+
+	randomBlockGenerator() {
+		let enemies = 5;
+		let treats = 5;
+		let toys = 2;
+		let emptySpaces = this.findEmptySpaces(); //Returns an array of 0's
+		this.placeObjects(enemies, 3, emptySpaces);
+		this.placeObjects(treats, 4, emptySpaces);
+		this.placeObjects(toys, 5, emptySpaces);
+		return emptySpaces;
+	}
+
+
+	createRandomMap() {
+		let emptyBlocks = this.randomBlockGenerator();
+		for(var i=0; i<1600; i++){
+			if(this.state.blockProps[i][1] === 0) {
+				this.state.blockProps[i][1] = emptyBlocks[0];
+				emptyBlocks.splice(0,1);
+			}
+		}	
 		this.setState(this.state);
 		this.checkMapState();
-		
+	}
+
+	renderMap() {
+		let block = this.state.blockProps;
+		for(var i=0; i<block.length; i++){
+			this.state.blockProps[i][1] = this.props.mapTwo[i];
+		}
+		this.setState(this.state);
+		this.createRandomMap();
 	}
 
 	checkMapState (){
-		//Reduce blockProps back down to 1600	
+		//Reduce blockProps back down to 1600
 		if(this.state.blockProps.length > 1600) {this.state.blockProps.splice(1599)}
 		//Loop through blockProps, determine status, set class
-		for(var i=0; i<this.state.blockProps.length; i++)
-			if(this.state.blockProps[i][1] === 0 ){
-				this.refs['b' + i].className = 'block floor'
-			} else if(this.state.blockProps[i][1] === 1) {
-				this.refs['b' + i].className = 'block wall'
-			} else if(this.state.blockProps[i][1] === 2) {
-				this.refs['b' + i].className = 'block player'
+		for(var i=0; i<this.state.blockProps.length; i++){
+			let block = this.state.blockProps;
+			let curDiv = this.refs['b' + i];
+			if(block[i][1] === 0 ){
+				curDiv.className = 'block floor';
+			} else if(block[i][1] === 1) {
+				curDiv.className = 'block wall';
+			} else if(block[i][1] === 2) {
+				curDiv.className = 'block player';
+			} else if(block[i][1] === 3) {
+				curDiv.className = 'block enemy';
+			} else if(block[i][1] === 4) {
+				curDiv.className = 'block health';
+			} else if(block[i][1] === 5) {
+				curDiv.className = 'block weapon';
 			}
+		}
+
 	}
 
 

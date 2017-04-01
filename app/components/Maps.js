@@ -1,14 +1,7 @@
 import React from 'react';
 import GameBoard2 from './GameBoard2'
 
-export default class Maps extends React.Component{
-
-	constructor(props) {
-		super(props);
-		this.state = {
-			mapWidth: 40,
-			mapHeight: 40,
-			mapOne: [
+var MAP_ONE = [
 		1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,
 		1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,
 		1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,
@@ -48,15 +41,30 @@ export default class Maps extends React.Component{
 		1,0,0,0,0,1,0,0,0,0,1,0,0,0,0,0,0,1,0,0,1,0,1,0,0,0,1,0,0,0,0,0,1,1,0,1,0,1,0,1,
 		1,0,0,0,0,1,0,0,0,0,1,1,1,1,0,1,1,1,0,0,1,0,1,0,0,0,1,0,0,0,0,0,0,1,0,1,0,0,0,1,
 		1,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,
-		1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
+		1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1];
 
+export default class Maps extends React.Component{
+
+	constructor(props) {
+		super(props);
+		this.state = {
+			mapWidth: 40,
+			mapHeight: 40,
+			mapTwo: MAP_ONE,
+			mapOne: MAP_ONE,
+		
 		}
 	}
+	
+	
+
+
 
 	render () {
 		return (
 			<div className="gameContainer" ref="gameCont">
 				 <GameBoard2  mapOne={this.state.mapOne}
+				 			  mapTwo={this.state.mapTwo}
 				 			  mapWidth={this.state.mapWidth}
 				 			  mapHeight={this.state.mapHeight}/>
 			</div>
@@ -65,3 +73,6 @@ export default class Maps extends React.Component{
 
 }
 
+	
+
+	

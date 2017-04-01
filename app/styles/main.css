@@ -38,7 +38,7 @@ body {
     border: 1px solid black;
     overflow: hidden;
     position: relative;
-    background-color: green; }
+    background-color: #136414; }
     .gameContainer .visableArea .gridContainer {
       z-index: 100;
       position: absolute;
@@ -59,6 +59,12 @@ body {
   background-image: url("./images/dog.png"); }
 .gridContainer .wall {
   background-image: url("./images/wall.png"); }
+.gridContainer .enemy {
+  background-image: url("./images/cat.png"); }
+.gridContainer .health {
+  background-image: url("./images/treat.png"); }
+.gridContainer .weapon {
+  background-image: url("./images/tennisBall.png"); }
 
 .footerContainer {
   background-color: #bbb;

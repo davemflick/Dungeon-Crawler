@@ -46,7 +46,7 @@ body{
 		border: 1px solid black;
 		overflow: hidden;
 		position: relative;
-		background-color: green;
+		background-color: #136414;
 		
 		.gridContainer {
 			z-index: 100;
@@ -78,6 +78,15 @@ body{
 	}
 	.wall {
 		background-image: url('./images/wall.png');
+	}
+	.enemy {
+		background-image: url('./images/cat.png');
+	}
+	.health {
+		background-image: url('./images/treat.png');
+	}
+	.weapon {
+		background-image: url('./images/tennisBall.png');
 	}
 }
 
