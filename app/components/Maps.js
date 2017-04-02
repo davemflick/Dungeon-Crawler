@@ -195,8 +195,11 @@ export default class Maps extends React.Component{
 				 			  mapFour={this.state.mapFour}
 				 			  mapWidth={this.state.mapWidth}
 				 			  mapHeight={this.state.mapHeight}
+				 			  incMap={this.props.incMap}
 				 			  health={this.props.health}
-				 			  incHealth={this.props.incHealth}/>
+				 			  weapon={this.props.weapon}
+				 			  incHealth={this.props.incHealth}
+				 			  upgradeWeapon={this.props.upgradeWeapon}/>
 			</div>
 		)
 	}

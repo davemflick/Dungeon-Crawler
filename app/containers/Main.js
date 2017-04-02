@@ -16,11 +16,26 @@ export default class Main extends React.Component{
 		}
 
 		this.increaseHealth = this.increaseHealth.bind(this);
+		this.upgradeWeapon = this.upgradeWeapon.bind(this);
+		this.incMap = this.incMap.bind(this);
+	}
+
+	incMap() {
+		this.state.CurMap += 1;
+		this.setState(this.state);
 	}
 
 	increaseHealth () {
 		this.state.Health += 20;
 		this.setState(this.state);
+	}
+
+	upgradeWeapon () {
+		let level = this.state.Level;
+		if(level === 1){
+			this.state.Weapon = 'Tennis Ball';
+		}
+		this.setState(this.state)
 	}
 
 	render() {
@@ -35,7 +50,10 @@ export default class Main extends React.Component{
 					 />
 					
 				<Maps health={this.state.Health}
-					  incHealth={this.increaseHealth}/>
+					  incHealth={this.increaseHealth}
+					  weapon={this.state.Weapon}
+					  upgradeWeapon={this.upgradeWeapon}
+					  incMap={this.incMap}/>
 			</div>
 		)
 	}

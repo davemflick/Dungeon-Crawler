@@ -37,10 +37,11 @@ export default class GameBoard2 extends React.Component{
 
 	componentWillUnMount(){
 		this.renderMap();
-		this.refs.gameCont.addEventListener('keyDown', this.handleKeyDown)
+		this.refs.gameCont.addEventListener('keyDown', this.handleKeyDown.bind(this))
 	}
 
 	nextLevel() {
+		this.props.incMap();
 		this.state.viewTop = -220;
 		this.state.viewLeft =  -200;
 		this.state.verticalKey = 0;
@@ -54,7 +55,6 @@ export default class GameBoard2 extends React.Component{
 		this.state.horizKey = this.state.horizKey + (inc);
 		if(this.state.horizKey > b1 && this.state.horizKey < b2){
 			this.state.viewLeft = this.state.viewLeft + (view);
-			console.log(this.state.viewLeft)
 		}
 		this.setState(this.state)
 	}
@@ -63,7 +63,6 @@ export default class GameBoard2 extends React.Component{
 		this.state.verticalKey = this.state.verticalKey + (inc);
 		if(this.state.verticalKey <= b1 && this.state.verticalKey >= b2){
 			this.state.viewTop = this.state.viewTop + (view);
-			console.log(this.state.viewTop)
 		}
 		this.setState(this.state)
 	}
@@ -101,6 +100,11 @@ export default class GameBoard2 extends React.Component{
 				left[1] = 2;
 				player[1] = 0;
 				this.movePlayerLeftRight(-1, -11, 10, 20);
+			} else if(left[1] == 5) {
+				this.props.upgradeWeapon();
+				left[1] = 2;
+				player[1] = 0;
+				this.movePlayerLeftRight(-1, -11, 10, 20);
 			}
 			
 		} else if (e.keyCode === 38){
@@ -112,6 +116,11 @@ export default class GameBoard2 extends React.Component{
 				this.nextLevel();
 			} else if(top[1] == 4) {
 				this.props.incHealth();
+				top[1] = 2;
+				player[1] = 0;
+				this.movePlayerUpDown(1, 11, -13, 20);
+			} else if(top[1] == 5) {
+				this.props.upgradeWeapon();
 				top[1] = 2;
 				player[1] = 0;
 				this.movePlayerUpDown(1, 11, -13, 20);
@@ -129,6 +138,11 @@ export default class GameBoard2 extends React.Component{
 				right[1] = 2;
 				player[1] = 0;
 				this.movePlayerLeftRight(1, -10, 11, -20);
+			} else if(right[1] === 5) {
+				this.props.upgradeWeapon();
+				right[1] = 2;
+				player[1] = 0;
+				this.movePlayerLeftRight(1, -10, 11, -20);
 			}
 
 		} else if (e.keyCode === 40){
@@ -140,6 +154,11 @@ export default class GameBoard2 extends React.Component{
 					this.nextLevel();
 			} else if(bottom[1] == 4) {
 				this.props.incHealth();
+				bottom[1] = 2;
+				player[1] = 0;
+				this.movePlayerUpDown(-1, 10, -14, -20);
+			} else if(bottom[1] == 5) {
+				this.props.upgradeWeapon();
 				bottom[1] = 2;
 				player[1] = 0;
 				this.movePlayerUpDown(-1, 10, -14, -20);
@@ -239,7 +258,7 @@ export default class GameBoard2 extends React.Component{
 
 	}
 
-
+ //Creates Array blockProps that stores, index and state of each grid cell [id, state]
 	createBlockProps () {
 		let width = this.props.mapWidth;
 		let height = this.props.mapHeight;
