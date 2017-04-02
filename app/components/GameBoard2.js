@@ -1,6 +1,8 @@
 import React from 'react';
 
 
+// 0=Ground 1=Wall 2=Player 3=Enemies 4=Health 5=Weapons 6=? 7=? 8=? 9=Hole
+
 
 export default class GameBoard2 extends React.Component{
 
@@ -12,23 +14,62 @@ export default class GameBoard2 extends React.Component{
 			blockProps: [], /* [[index, floor/wall/player],[index, floor/wall/player]] */
 			verticalKey: 0,
 			horizKey: 0,
-
+			curMap: 0,
+			maps: [this.props.mapOne, this.props.mapTwo, this.props.mapThree, this.props.mapFour],
+			playerStats: {
+					health: this.props.health,
+					weapon: this.props.weapon,
+				},
+			enemyStats: {
+					lev1: 20,
+					lev2: 40,
+					lev3: 80,
+			},
 		}
 
 	}
 
 	componentDidMount() {
-		this.renderMap();
-		window.addEventListener('keydown', this.handleKeyDown.bind(this))
+			this.renderMap();
+			window.addEventListener('keydown', this.handleKeyDown.bind(this))
 	}
 
 
 	componentWillUnMount(){
+		this.renderMap();
 		this.refs.gameCont.addEventListener('keyDown', this.handleKeyDown)
 	}
 
+	nextLevel() {
+		this.state.viewTop = -220;
+		this.state.viewLeft =  -200;
+		this.state.verticalKey = 0;
+		this.state.horizKey = 0;
+		this.state.curMap += 1;
+		this.setState(this.state);
+		this.renderMap();
+	}
+
+	movePlayerLeftRight(inc, b1, b2, view) {
+		this.state.horizKey = this.state.horizKey + (inc);
+		if(this.state.horizKey > b1 && this.state.horizKey < b2){
+			this.state.viewLeft = this.state.viewLeft + (view);
+			console.log(this.state.viewLeft)
+		}
+		this.setState(this.state)
+	}
+
+	movePlayerUpDown(inc, b1, b2, view) {
+		this.state.verticalKey = this.state.verticalKey + (inc);
+		if(this.state.verticalKey <= b1 && this.state.verticalKey >= b2){
+			this.state.viewTop = this.state.viewTop + (view);
+			console.log(this.state.viewTop)
+		}
+		this.setState(this.state)
+	}
+	
+
 	handleKeyDown (e) {
-		
 		let map = this.state.blockProps;
 		const length = this.state.blockProps.length;
 		let player, top, right, bottom, left = null;
@@ -48,36 +89,60 @@ export default class GameBoard2 extends React.Component{
 		/*Check status of Player's neighbors,
 		 if it exists and it is not a wall, 
 		 player can move in direction of pressed key.*/
-		if(left !== null && left[1] !== 1 && e.keyCode == 37){
-			left[1] = 2;
-			player[1] = 0;
-			this.state.horizKey -= 1;
-			if(this.state.horizKey > -11 && this.state.horizKey < 10){
-				this.state.viewLeft += 20;
+		if(e.keyCode === 37){
+			if(left[1] === 0){
+				left[1] = 2;
+				player[1] = 0;
+				this.movePlayerLeftRight(-1, -11, 10, 20);
+			} else if(left[1] === 9) {
+				this.nextLevel();
+			} else if(left[1] === 4) {
+				this.props.incHealth();
+				left[1] = 2;
+				player[1] = 0;
+				this.movePlayerLeftRight(-1, -11, 10, 20);
 			}
 			
-		} else if(top !== null && top[1] !== 1 && e.keyCode == 38){
-			top[1] = 2;
-			player[1] = 0;
-			this.state.verticalKey++;
-			if(this.state.verticalKey <= 11 && this.state.verticalKey >= -13) {
-				this.state.viewTop += 20;
+		} else if (e.keyCode === 38){
+			if(top[1] === 0){
+				top[1] = 2;
+				player[1] = 0;
+				this.movePlayerUpDown(1, 11, -13, 20);
+			} else if(top[1] == 9) {
+				this.nextLevel();
+			} else if(top[1] == 4) {
+				this.props.incHealth();
+				top[1] = 2;
+				player[1] = 0;
+				this.movePlayerUpDown(1, 11, -13, 20);
 			}
 
-		} else if(right !== null && right[1] !== 1 && e.keyCode == 39){
-			right[1] = 2;
-			player[1] = 0;
-			this.state.horizKey += 1;
-			if(this.state.horizKey > -10 && this.state.horizKey < 11){
-				this.state.viewLeft -= 20;
-			}	
-			
-		} else if(bottom !== null && bottom[1] !== 1 && e.keyCode == 40){
-			bottom[1] = 2;
-			player[1] = 0;
-			this.state.verticalKey--;
-			if(this.state.verticalKey <= 10 && this.state.verticalKey >= -14)  {
-				this.state.viewTop -= 20;
+		} else if(e.keyCode === 39){
+			if(right[1] === 0){
+				right[1] = 2;
+				player[1] = 0;
+				this.movePlayerLeftRight(1, -10, 11, -20);
+			} else if(right[1] === 9) {
+				this.nextLevel();
+			} else if(right[1] === 4) {
+				this.props.incHealth();
+				right[1] = 2;
+				player[1] = 0;
+				this.movePlayerLeftRight(1, -10, 11, -20);
+			}
+
+		} else if (e.keyCode === 40){
+			if(bottom[1] === 0){
+				bottom[1] = 2;
+				player[1] = 0;
+				this.movePlayerUpDown(-1, 10, -14, -20);
+			} else if(bottom[1] === 9) {
+					this.nextLevel();
+			} else if(bottom[1] == 4) {
+				this.props.incHealth();
+				bottom[1] = 2;
+				player[1] = 0;
+				this.movePlayerUpDown(-1, 10, -14, -20);
 			}
 		}
 		this.setState(this.state);
@@ -86,15 +151,7 @@ export default class GameBoard2 extends React.Component{
 
 	}
 
-
-	onPlayerMove(){
-		let block = this.state.blockProps;
-		for(var i=0; i<block.length; i++){
-			if(block[i][1] === 2 )
-			block[i][1] = randNum();
-		}
-	}
-
+	//Determines all empty (floor) pieces in map
 	findEmptySpaces () {
 		let empty = []
 		for(var i=0; i<1600; i++){
@@ -105,6 +162,7 @@ export default class GameBoard2 extends React.Component{
 		return empty
 	}
 
+	//Takes in enemies/health/weapon and asigns to random index in array.
 	placeObjects(object, id, emptySpaces)  {
 		while (object > 0) {
 			let num = Math.floor(Math.random() * emptySpaces.length);
@@ -118,6 +176,7 @@ export default class GameBoard2 extends React.Component{
 		return emptySpaces
 	}
 
+	//Generates an Array of empty spaces, health, weapons, enemies In random order
 	randomBlockGenerator() {
 		let enemies = 5;
 		let treats = 5;
@@ -130,6 +189,8 @@ export default class GameBoard2 extends React.Component{
 	}
 
 
+	//Will Count total number of Empty Squares
+	// Randomly Place Enemies, Health, Weapons
 	createRandomMap() {
 		let emptyBlocks = this.randomBlockGenerator();
 		for(var i=0; i<1600; i++){
@@ -142,10 +203,11 @@ export default class GameBoard2 extends React.Component{
 		this.checkMapState();
 	}
 
+	//Will take in blockProps array, determine which each block is and render map
 	renderMap() {
 		let block = this.state.blockProps;
 		for(var i=0; i<block.length; i++){
-			this.state.blockProps[i][1] = this.props.mapTwo[i];
+			this.state.blockProps[i][1] = this.state.maps[this.state.curMap][i];
 		}
 		this.setState(this.state);
 		this.createRandomMap();
@@ -170,6 +232,8 @@ export default class GameBoard2 extends React.Component{
 				curDiv.className = 'block health';
 			} else if(block[i][1] === 5) {
 				curDiv.className = 'block weapon';
+			} else if(block[i][1] === 9) {
+				curDiv.className = 'block hole';
 			}
 		}
 

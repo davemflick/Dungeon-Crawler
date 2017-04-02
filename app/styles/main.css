@@ -65,6 +65,8 @@ body {
   background-image: url("./images/treat.png"); }
 .gridContainer .weapon {
   background-image: url("./images/tennisBall.png"); }
+.gridContainer .hole {
+  background-image: url("./images/hole.png"); }
 
 .footerContainer {
   background-color: #bbb;

@@ -14,6 +14,13 @@ export default class Main extends React.Component{
 			Weapon: 'None',
 			CurMap: 1,
 		}
+
+		this.increaseHealth = this.increaseHealth.bind(this);
+	}
+
+	increaseHealth () {
+		this.state.Health += 20;
+		this.setState(this.state);
 	}
 
 	render() {
@@ -27,7 +34,8 @@ export default class Main extends React.Component{
 					curMap={this.state.CurMap}
 					 />
 					
-				<Maps />
+				<Maps health={this.state.Health}
+					  incHealth={this.increaseHealth}/>
 			</div>
 		)
 	}
