@@ -9,22 +9,17 @@ export default class GameBoard2 extends React.Component{
 	constructor(props) {
 		super(props);
 		this.state = {
-			viewTop: -220,
-			viewLeft: -200,
+			viewTop: this.props.viewTop,
+			viewLeft: this.props.viewLeft,
 			blockProps: [], /* [[index, floor/wall/player],[index, floor/wall/player]] */
-			verticalKey: 0,
-			horizKey: 0,
-			curMap: 0,
+			verticalKey: this.props.vK,
+			horizKey: this.props.hK,
+			curMap: this.props.curMap -1,
 			maps: [this.props.mapOne, this.props.mapTwo, this.props.mapThree, this.props.mapFour],
-			playerStats: {
-					health: this.props.health,
-					weapon: this.props.weapon,
-				},
-			enemyStats: {
-					lev1: 20,
-					lev2: 40,
-					lev3: 80,
-			},
+			enemyCat: this.props.enemyCat,
+			enemyKid: this.props.enemyKid,
+			won : this.props.won,
+			
 		}
 
 	}
@@ -32,13 +27,36 @@ export default class GameBoard2 extends React.Component{
 	componentDidMount() {
 			this.renderMap();
 			window.addEventListener('keydown', this.handleKeyDown.bind(this))
+			window.addEventListener('keyup', this.handleKeyUp.bind(this))
 	}
 
 
 	componentWillUnMount(){
 		this.renderMap();
-		this.refs.gameCont.addEventListener('keyDown', this.handleKeyDown.bind(this))
+		window.addEventListener('keyDown', this.handleKeyDown.bind(this))
+		window.addEventListener('keyup', this.handleKeyUp.bind(this))
 	}
+
+	handleKeyUp() {
+		if(this.props.health <=0) {
+			this.setState({
+				viewTop: this.props.viewTop,
+				viewLeft: this.props.viewLeft,
+				verticalKey: this.props.vK,
+				horizKey: this.props.hK,
+				curMap: 0,
+			})
+			this.renderMap()
+		}
+
+		this.props.incLevel();
+		this.setState({enemyCat: this.props.enemyCat})
+		this.setState({enemyKid: this.props.enemyKid})
+		if(this.state.won === 1) {this.renderMap()}
+			this.setState({won: 0})
+
+	}
+	
 
 	nextLevel() {
 		this.props.incMap();
@@ -50,6 +68,7 @@ export default class GameBoard2 extends React.Component{
 		this.setState(this.state);
 		this.renderMap();
 	}
+	
 
 	movePlayerLeftRight(inc, b1, b2, view) {
 		this.state.horizKey = this.state.horizKey + (inc);
@@ -65,6 +84,26 @@ export default class GameBoard2 extends React.Component{
 			this.state.viewTop = this.state.viewTop + (view);
 		}
 		this.setState(this.state)
+	}
+
+	//Check cat's health, replenish if dead
+	checkCat (dir, player) {
+		if(this.state.enemyCat <= 0) {
+			dir[1] = 2;
+			player[1] = 0;
+			this.props.fixCat();
+		}
+	}
+	//Check kid health
+	checkKid (dir, player) {
+		if(this.state.enemyKid <= 0) {
+			
+			dir[1] = 2;
+			player[1] = 0;
+			this.props.winner();
+			this.state.won = 1;
+			this.setState(this.state)
+		}
 	}
 	
 
@@ -100,12 +139,18 @@ export default class GameBoard2 extends React.Component{
 				left[1] = 2;
 				player[1] = 0;
 				this.movePlayerLeftRight(-1, -11, 10, 20);
-			} else if(left[1] == 5) {
+			} else if(left[1] == 5 || left[1] == 6 || left[1] == 7 || left[1] == 8) {
 				this.props.upgradeWeapon();
 				left[1] = 2;
 				player[1] = 0;
 				this.movePlayerLeftRight(-1, -11, 10, 20);
-			}
+			} else if (left[1] === 3){
+				this.checkCat(left, player);
+				this.props.attackCat();
+			} else if (left[1] === 10){
+				this.checkKid(left, player);
+				this.props.attackKid();
+			} 
 			
 		} else if (e.keyCode === 38){
 			if(top[1] === 0){
@@ -114,17 +159,23 @@ export default class GameBoard2 extends React.Component{
 				this.movePlayerUpDown(1, 11, -13, 20);
 			} else if(top[1] == 9) {
 				this.nextLevel();
-			} else if(top[1] == 4) {
+			} else if(top[1] == 4 ) {
 				this.props.incHealth();
 				top[1] = 2;
 				player[1] = 0;
 				this.movePlayerUpDown(1, 11, -13, 20);
-			} else if(top[1] == 5) {
+			} else if(top[1] == 5 || top[1] == 6 || top[1] == 7 || top[1] == 8) {
 				this.props.upgradeWeapon();
 				top[1] = 2;
 				player[1] = 0;
 				this.movePlayerUpDown(1, 11, -13, 20);
-			}
+			} else if (top[1] === 3){
+				this.checkCat(top, player);
+				this.props.attackCat();
+			} else if (top[1] === 10){
+				this.checkKid(top, player);
+				this.props.attackKid();
+			} 
 
 		} else if(e.keyCode === 39){
 			if(right[1] === 0){
@@ -138,12 +189,18 @@ export default class GameBoard2 extends React.Component{
 				right[1] = 2;
 				player[1] = 0;
 				this.movePlayerLeftRight(1, -10, 11, -20);
-			} else if(right[1] === 5) {
+			} else if(right[1] === 5 || right[1] == 6 || right[1] == 7 || right[1] == 8) {
 				this.props.upgradeWeapon();
 				right[1] = 2;
 				player[1] = 0;
 				this.movePlayerLeftRight(1, -10, 11, -20);
-			}
+			} else if (right[1] === 3){
+				this.checkCat(right, player);
+				this.props.attackCat();
+			} else if (right[1] === 10){
+				this.checkKid(right, player);
+				this.props.attackKid();
+			} 
 
 		} else if (e.keyCode === 40){
 			if(bottom[1] === 0){
@@ -157,12 +214,18 @@ export default class GameBoard2 extends React.Component{
 				bottom[1] = 2;
 				player[1] = 0;
 				this.movePlayerUpDown(-1, 10, -14, -20);
-			} else if(bottom[1] == 5) {
+			} else if(bottom[1] == 5 || bottom[1] == 6 || bottom[1] == 7 || bottom[1] == 8) {
 				this.props.upgradeWeapon();
 				bottom[1] = 2;
 				player[1] = 0;
 				this.movePlayerUpDown(-1, 10, -14, -20);
-			}
+			} else if (bottom[1] === 3){
+				this.checkCat(bottom, player);
+				this.props.attackCat();
+			} else if (bottom[1] === 10){
+				this.checkKid(bottom, player);
+				this.props.attackKid();
+			} 
 		}
 		this.setState(this.state);
 		// call checkMapState to update game grid
@@ -197,13 +260,21 @@ export default class GameBoard2 extends React.Component{
 
 	//Generates an Array of empty spaces, health, weapons, enemies In random order
 	randomBlockGenerator() {
-		let enemies = 5;
+		let cats = 5;
 		let treats = 5;
 		let toys = 2;
 		let emptySpaces = this.findEmptySpaces(); //Returns an array of 0's
-		this.placeObjects(enemies, 3, emptySpaces);
 		this.placeObjects(treats, 4, emptySpaces);
-		this.placeObjects(toys, 5, emptySpaces);
+		this.placeObjects(cats, 3, emptySpaces);
+		if(this.state.curMap === 0){
+			this.placeObjects(toys, 5, emptySpaces);
+		} else if (this.state.curMap == 1){
+			this.placeObjects(toys, 6, emptySpaces);
+		} else if (this.state.curMap == 2){
+			this.placeObjects(toys, 7, emptySpaces);
+		} else if (this.state.curMap == 3){
+			this.placeObjects(toys, 8, emptySpaces);
+		}
 		return emptySpaces;
 	}
 
@@ -246,13 +317,21 @@ export default class GameBoard2 extends React.Component{
 			} else if(block[i][1] === 2) {
 				curDiv.className = 'block player';
 			} else if(block[i][1] === 3) {
-				curDiv.className = 'block enemy';
+				curDiv.className = 'block cat';
 			} else if(block[i][1] === 4) {
 				curDiv.className = 'block health';
 			} else if(block[i][1] === 5) {
-				curDiv.className = 'block weapon';
+				curDiv.className = 'block tennisball';
+			}else if(block[i][1] === 6) {
+				curDiv.className = 'block duck';
+			}else if(block[i][1] === 7) {
+				curDiv.className = 'block bear';
+			}else if(block[i][1] === 8) {
+				curDiv.className = 'block squeek';
 			} else if(block[i][1] === 9) {
 				curDiv.className = 'block hole';
+			} else if(block[i][1] === 10) {
+				curDiv.className = 'block kid';
 			}
 		}
 
