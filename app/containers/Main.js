@@ -20,7 +20,7 @@ export default class Main extends React.Component{
 			vK: 0,
 			hK: 0,
 			enemyCat: 40,
-			enemyKid: 550,
+			enemyKid: 580,
 			won: 0,
 			results: "You've Killed the Dog.....Jerk",
 		}
@@ -33,6 +33,7 @@ export default class Main extends React.Component{
 		this.incLevel = this.incLevel.bind(this);
 		this.replaceCatHealth = this.replaceCatHealth.bind(this);
 		this.youWin = this.youWin.bind(this);
+		this.incXP = this.incXP.bind(this);
 	}
 
 	incMap() {
@@ -43,6 +44,14 @@ export default class Main extends React.Component{
 	increaseHealth () {
 		this.state.Health += 25;
 		this.setState(this.state);
+	}
+
+	incXP () {
+		if (this.state.Level < 4) {
+			return this.state.NextLevel + " XP"
+		} else {
+			return "Top Level";
+		}
 	}
 
 	upgradeWeapon () {
@@ -95,7 +104,7 @@ export default class Main extends React.Component{
 		else if(level == 3) {damage += 20}
 		else if(level == 4) {damage += 30}
 		if(toy === "None") {damage += 0}
-		else if (toy = 'Tennis Ball') { damage += 9}
+		else if (toy == 'Tennis Ball') { damage += 9}
 		else if (toy === 'Rubber Duck') { damage += 17}
 		else if (toy === "Mr. Bear") {damage += 25}
 		else if (toy === "Squeekers") {damage += 33}
@@ -121,7 +130,6 @@ export default class Main extends React.Component{
 			this.state.Health = this.state.Health - (5 + this.randomNum())
 		} else if(level === 4) {
 			this.state.enemyCat -= this.checkDamageGiven();
-			this.state.NextLevel -= 20;
 			this.state.Health = this.state.Health - (1 + this.randomNum())
 		}
 		this.setState(this.state);
@@ -205,7 +213,7 @@ export default class Main extends React.Component{
 				<PlayerStats 
 					curHealth={this.state.Health} 
 					curLevel={this.state.Level}
-					nextLevel={this.state.NextLevel} 
+					nextLevel={this.incXP} 
 					curWeapon={this.state.Weapon}
 					curMap={this.state.CurMap}
 					 />

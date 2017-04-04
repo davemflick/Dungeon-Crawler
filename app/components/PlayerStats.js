@@ -17,7 +17,7 @@ export default class PlayerStats extends React.Component{
 				</div>
 				<div className="stat">
 				<h4>Next Level:</h4>
-				<p id="nextLevel">{`${this.props.nextLevel} XP`}</p>
+				<p id="nextLevel">{this.props.nextLevel()}</p>
 				</div>
 				<div className="stat">
 				<h4>Weapon:</h4>
