@@ -25,6 +25,7 @@ export default class GameBoard2 extends React.Component{
 	}
 
 	componentDidMount() {
+			
 			this.renderMap();
 			window.addEventListener('keydown', this.handleKeyDown.bind(this))
 			window.addEventListener('keyup', this.handleKeyUp.bind(this))
@@ -121,7 +122,7 @@ export default class GameBoard2 extends React.Component{
 			})
 		}
 	}
-	
+
 
 	handleKeyDown (e) {
 		let map = this.state.blockProps;
@@ -358,18 +359,13 @@ export default class GameBoard2 extends React.Component{
 		let width = this.props.mapWidth;
 		let height = this.props.mapHeight;
 		let gridArea = width * height;
-		let centerBlock = ((gridArea/2) - (width/2));
 		let blockProps = this.state.blockProps;
 		let boardArr = [];
 
 		for(var i=0; i<gridArea; i++){
-			if(i !== centerBlock){
-				blockProps.push([i, 0]);
-			} else if ( i === centerBlock){
-				blockProps.push([i, 2]);
-			}
+			blockProps.push([i, 0]);
 			boardArr.push(<div 
-							className="block" 
+							className="block"
 							key={i} 
 							ref={'b' + i}
 							 ></div>)

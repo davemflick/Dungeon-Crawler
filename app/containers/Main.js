@@ -118,15 +118,15 @@ export default class Main extends React.Component{
 		let level = this.state.Level;
 		if(level === 1){
 			this.state.enemyCat -= this.checkDamageGiven();
-			this.state.NextLevel -= 8;
+			this.state.NextLevel -= 4;
 			this.state.Health = this.state.Health - (12 + this.randomNum())
 		} else if(level === 2) {
 			this.state.enemyCat -= this.checkDamageGiven();
-			this.state.NextLevel -= 12;
+			this.state.NextLevel -= 5;
 			this.state.Health = this.state.Health - (9 + this.randomNum())
 		} else if(level === 3) {
 			this.state.enemyCat -= this.checkDamageGiven();
-			this.state.NextLevel -= 16;
+			this.state.NextLevel -= 10;
 			this.state.Health = this.state.Health - (5 + this.randomNum())
 		} else if(level === 4) {
 			this.state.enemyCat -= this.checkDamageGiven();
@@ -168,6 +168,7 @@ export default class Main extends React.Component{
 
 	checkHealth () {
 		if (this.state.Health <=0) {
+			this.state.NextLevel -= 10;
 			this.state.gameOver = 'block';
 			this.state.Health = 0;
 			this.state.curMap = 1
