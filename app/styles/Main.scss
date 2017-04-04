@@ -1,19 +1,32 @@
 *{ box-sizing: border-box; }
 
+html {
+	height: 100%;
+}
+
 body{
-	background-color: #ddd;
 	text-align: center;
+	background-color: #ddd;
+	height: 100%;
+}
+
+.fullPageContainer {
+	display: flex;
+	flex-direction: column;
 }
 
 .headerContainer {
-	background-color: #bbb;
+	background-image: url('./images/fence.png');
+	background-color: #b7dfee;
+	color: #4c5867;
 	padding-top: 15px;
 	height: 100%;
 	.header{
 		margin: 0 auto;
-
+		background-color: rgba(247,247,247, .6);
 	}
 	.description {
+		background-color: rgba(247,247,247, .6);
 		margin-top: .2em;
 		margin-bottom: .7em;
 		font-size: 12px;
@@ -24,15 +37,47 @@ body{
 .mainContainer{
 	display: flex;
 	flex-wrap: no-wrap;
-	justify-content: space-between;
+	justify-content: center;
 	align-items: stretch;
+	background-color: #ddd;
 	.playerStatsContainer{
 		border: 1px solid black;
-		width: 20%;
+		width: 40%;
+		background-color: #042938;
+		color: #f7f7f7;
+		.stat {
+			h4{
+				color: #f7f7f7;
+			}
+			p {
+				color: #EFF76B;
+			}
+		}
 	}
 	.gameContainer {
 		border: 1px solid black;
-		width: 80%;
+		width: 60%;
+	}
+	@media (max-width: 688px){
+		flex-wrap: wrap;
+		align-items: flex-start;
+		justify-content: space-around;
+		.playerStatsContainer {
+			width: 100%;
+			display: flex;
+			flex-wrap: wrap;
+			justify-content: space-between;
+			h3{
+				width: 100%;
+			}
+			.stat{
+				width: 33%;
+			}
+		}
+		.gameContainer {
+			width: 100%;
+			padding: 10px;
+		}
 	}
 }
 
@@ -40,6 +85,7 @@ body{
 	display: flex;
 	justify-content: center;
 	align-items: center;
+	background-color: #4c5867;
 	.visableArea {
 		width:400px;
 		height: 300px;
@@ -118,16 +164,29 @@ body{
 	background-color: 'white';
 	background-color: rgba(0,0,0,0.4);
 	.popUp {
-		background-color: #fefefe;
+		background-color: #377457;
+		background-image: url('./images/fence.png');
 	    margin: auto;
 	    padding: 20px;
 	    border: 1px solid #888;
 	    width: 80%;
+	    height: 300px;
+	    color: #b7dfee;
+	    display: flex;
+	    justify-content: space-between;
+	    flex-direction: column;
+	    .playAgain {
+	    	padding: 20px;
+	    	background-color: #69bd95;
+	    	color: #b7dfee
+	    }
+	    .playAgain:hover {
+			cursor: pointer;
+			text-decoration: none;
+		
 	}
-	.playAgain:hover {
-		cursor: pointer;
-		text-decoration: none;
 	}
+
 }
 
 
@@ -137,6 +196,21 @@ body{
 
 .footerContainer {
 	background-color: #bbb;
+	padding: 30px;
 	font-size: 14px;
 }
+
+
+// Image Sources
+//fence.png http://www.clipartpanda.com/clipart_images/free-broken-fence-clip-art-65673826
+
+
+
+
+
+
+
+
+
+
 

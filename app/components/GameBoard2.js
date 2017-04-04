@@ -94,15 +94,31 @@ export default class GameBoard2 extends React.Component{
 			this.props.fixCat();
 		}
 	}
+
+	timeOutAfterWin () {
+			this.props.winner()
+			this.state.verticalKey = this.props.vK
+			this.state.horizKey = this.props.hK
+			this.state.viewTop = this.props.viewTop
+			this.state.viewLeft = this.props.viewLeft
+			this.state.curMap = 0
+			this.state.won = 1;
+			this.setState(this.state)
+	}
 	//Check kid health
 	checkKid (dir, player) {
 		if(this.state.enemyKid <= 0) {
-			
 			dir[1] = 2;
 			player[1] = 0;
 			this.props.winner();
-			this.state.won = 1;
-			this.setState(this.state)
+			this.setState({
+				verticalKey: this.props.vK,
+				horizKey: this.props.hK,
+				viewTop: this.props.viewTop,
+				viewLeft: this.props.viewLeft,
+				curMap: 0,
+				won: 1,
+			})
 		}
 	}
 	

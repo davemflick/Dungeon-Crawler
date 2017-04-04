@@ -99,7 +99,6 @@ export default class Main extends React.Component{
 		else if (toy === 'Rubber Duck') { damage += 17}
 		else if (toy === "Mr. Bear") {damage += 25}
 		else if (toy === "Squeekers") {damage += 33}
-			console.log(level, toy, damage)
 		return damage;
 	}
 
@@ -149,7 +148,6 @@ export default class Main extends React.Component{
 			this.state.NextLevel -= 20;
 			this.state.Health = this.state.Health - (15 + this.randomNum())
 		}
-		console.log(this.state.enemyKid, this.state.Health)
 		this.setState(this.state);
 		this.checkHealth();
 	}
@@ -170,10 +168,15 @@ export default class Main extends React.Component{
 	}
 
 	youWin () {
-		this.state.gameOver = "block";
-		this.state.curMap = 1;
-		this.state.results = "You've Defeated the Evil Neighbor Kid!"
-		this.setState(this.state);
+		this.setState({
+			viewTop: -220,
+			viewLeft: -200,
+			vK: 0,
+			hK: 0,
+			gameOver: "block",
+			curMap: 1,
+			results: "You've Defeated the Evil Neighbor Kid!",
+		});
 	}
 
 	restartGame () {
@@ -190,7 +193,7 @@ export default class Main extends React.Component{
 			vK: 0,
 			hK: 0,
 			enemyCat: 40,
-			enemyKid: 50,
+			enemyKid: 550,
 			won: 0,
 			results: "You've Killed the Dog.....Jerk",
 		})
@@ -208,7 +211,7 @@ export default class Main extends React.Component{
 					 />
 				<div className="gameOver" ref="gameOver" style={{display: this.state.gameOver}}>
 					<div className="popUp">
-						<p>{this.state.results}</p>
+						<h2>{this.state.results}</h2>
 						<button className="playAgain" onClick={this.restartGame.bind(this)}>Play Again</button>
 					</div>
 				</div>
