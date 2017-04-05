@@ -162,13 +162,13 @@ export default class Main extends React.Component{
 
 	replaceCatHealth () {
 		if(this.state.enemyCat <= 0){
+			this.state.NextLevel -= 10;
 			this.setState( {enemyCat: 40,})
 		}
 	}
 
 	checkHealth () {
 		if (this.state.Health <=0) {
-			this.state.NextLevel -= 10;
 			this.state.gameOver = 'block';
 			this.state.Health = 0;
 			this.state.curMap = 1
