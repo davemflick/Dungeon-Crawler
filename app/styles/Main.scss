@@ -42,9 +42,11 @@ body{
 	background-color: #ddd;
 	.directions{
 		width: 30%;
-		padding-top: 25px;
+		padding-top: 15px;
+		background-color: #042938;
+		color: #f7f7f7;
 		.dirItem{
-			margin: 12px;
+			margin: 14px;
 		}
 	}
 	.playerStatsContainer{
