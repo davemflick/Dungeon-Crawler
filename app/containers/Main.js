@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM, { render } from 'react-dom';
 import PlayerStats from '../components/PlayerStats';
 import Maps from '../components/Maps';
+import Directions from '../components/Directions';
 
 
 export default class Main extends React.Component{
@@ -243,6 +244,7 @@ export default class Main extends React.Component{
 					  winner={this.youWin}
 					  won={this.state.won}
 					  />
+				<Directions />
 			</div>
 		)
 	}

@@ -34,9 +34,14 @@ body {
   justify-content: center;
   align-items: stretch;
   background-color: #ddd; }
+  .mainContainer .directions {
+    width: 30%;
+    padding-top: 25px; }
+    .mainContainer .directions .dirItem {
+      margin: 12px; }
   .mainContainer .playerStatsContainer {
     border: 1px solid black;
-    width: 40%;
+    width: 20%;
     background-color: #042938;
     color: #f7f7f7; }
     .mainContainer .playerStatsContainer .stat h4 {
@@ -45,12 +50,14 @@ body {
       color: #EFF76B; }
   .mainContainer .gameContainer {
     border: 1px solid black;
-    width: 60%; }
-  @media (max-width: 688px) {
+    width: 50%; }
+  @media (max-width: 825px) {
     .mainContainer {
       flex-wrap: wrap;
       align-items: flex-start;
       justify-content: space-around; }
+      .mainContainer .directions {
+        width: 100%; }
       .mainContainer .playerStatsContainer {
         width: 100%;
         display: flex;
